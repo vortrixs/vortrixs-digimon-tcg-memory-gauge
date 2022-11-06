@@ -74,6 +74,7 @@
         font-size: 60px;
 
       > span {
+        pointer-events: none;
         background: linear-gradient(to top right, $-darkorange 40%, $-darkblue 60%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -97,6 +98,10 @@
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
+        }
+
+        &.previous:before {
+          filter: grayscale(50);
         }
 
         &.mid:before {
@@ -147,6 +152,37 @@
 </style>
 
 <script lang="ts">
+import { onMount } from "svelte";
+
+let active: Element;
+let previous: Element;
+
+onMount(() => {
+  document.querySelectorAll('main > section .active').forEach((element) => {
+    if (element.classList.contains('mid')) {
+      element.classList.remove('previous');
+      active = element;
+    } else {
+      element.classList.remove('active');
+    }
+  });
+});
+
+const activate = ({ target }: Event) => {
+  if (target === active) return;
+
+  if (previous) {
+    previous.classList.remove('previous');
+    previous.classList.remove('active');
+  }
+
+  previous = active;
+  previous.classList.add('previous');
+  
+  active = target as Element;
+  active.classList.add('active');
+};
+
 </script>
 
 <main>
@@ -154,49 +190,49 @@
   <div class="background blueish"></div>
   <section>
     <span class="empty row-one"></span>
-    <button class="circle blue flipped">10</button>
+    <button class="circle blue flipped" on:click={activate}>10</button>
     <span class="line"></span>
-    <button class="circle blue flipped">9</button>
+    <button class="circle blue flipped" on:click={activate}>9</button>
     <span class="line"></span>
-    <button class="circle blue flipped">8</button>
+    <button class="circle blue flipped" on:click={activate}>8</button>
     <span class="line"></span>
-    <button class="circle blue flipped">7</button>
+    <button class="circle blue flipped" on:click={activate}>7</button>
     <span class="line"></span>
-    <button class="circle red">6</button>
+    <button class="circle blue flipped" on:click={activate}>6</button>
     <span class="empty row-two"></span>
     <span class="line vertical"></span>
-    <button class="circle red">5</button>
+    <button class="circle red" on:click={activate}>5</button>
     <span class="line"></span>
-    <button class="circle red">4</button>
+    <button class="circle red" on:click={activate}>4</button>
     <span class="line"></span>
-    <button class="circle red">3</button>
+    <button class="circle red" on:click={activate}>3</button>
     <span class="line"></span>
-    <button class="circle red">2</button>
+    <button class="circle red" on:click={activate}>2</button>
     <span class="line"></span>
-    <button class="circle red">1</button>
+    <button class="circle red active" on:click={activate}>1</button>
     <span class="line"></span>
-    <button class="circle mid active"><span>0</span></button>
+    <button class="circle mid active previous" on:click={activate}><span>0</span></button>
     <span class="line"></span>
-    <button class="circle blue flipped">1</button>
+    <button class="circle blue flipped active" on:click={activate}>1</button>
     <span class="line"></span>
-    <button class="circle blue flipped">2</button>
+    <button class="circle blue flipped" on:click={activate}>2</button>
     <span class="line"></span>
-    <button class="circle blue flipped">3</button>
+    <button class="circle blue flipped" on:click={activate}>3</button>
     <span class="line"></span>
-    <button class="circle blue flipped">4</button>
+    <button class="circle blue flipped" on:click={activate}>4</button>
     <span class="line"></span>
-    <button class="circle blue flipped">5</button>
+    <button class="circle blue flipped" on:click={activate}>5</button>
     <span class="line vertical"></span>
     <span class="empty row-four"></span>
-    <button class="circle red">6</button>
+    <button class="circle red" on:click={activate}>6</button>
     <span class="line"></span>
-    <button class="circle red">7</button>
+    <button class="circle red" on:click={activate}>7</button>
     <span class="line"></span>
-    <button class="circle red">8</button>
+    <button class="circle red" on:click={activate}>8</button>
     <span class="line"></span>
-    <button class="circle red">9</button>
+    <button class="circle red" on:click={activate}>9</button>
     <span class="line"></span>
-    <button class="circle red">10</button>
+    <button class="circle red" on:click={activate}>10</button>
   </section>
 </main>
 
