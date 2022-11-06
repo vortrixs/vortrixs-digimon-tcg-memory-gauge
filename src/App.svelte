@@ -35,15 +35,6 @@
       background: linear-gradient(to bottom right, $-lightblue 20%, $-blue 40%, $-darkblue 70%, $-deepblue 90%) no-repeat border-box;
       clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 11% 100%);
     }
-
-    &.grid {
-      width: 100%;
-      z-index: -1;
-      background-size: 30px 30px;
-      background-image:
-        linear-gradient(to right, hsl(0, 0%, 80%) 1px, transparent 1px),
-        linear-gradient(to bottom, hsl(0, 0%, 80%) 1px, transparent 1px);
-    }
   }
 
   section {
@@ -76,6 +67,7 @@
       > span {
         pointer-events: none;
         background: linear-gradient(to top right, $-darkorange 40%, $-darkblue 60%);
+        background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
