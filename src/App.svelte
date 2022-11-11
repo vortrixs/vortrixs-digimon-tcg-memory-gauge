@@ -48,7 +48,6 @@
 
   section {
     display: grid;
-    grid-template-columns: repeat(21, 1fr);
     grid-template-rows: 70px 40px 70px 40px 70px;
     align-items: center;
     justify-items: center;
